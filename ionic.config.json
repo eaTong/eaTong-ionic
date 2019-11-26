@@ -1,5 +1,7 @@
 {
   "name": "eatong-ionic",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react"
 }

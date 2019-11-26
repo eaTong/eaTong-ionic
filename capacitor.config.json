@@ -1,0 +1,8 @@
+{
+  "appId": "cn.eatong.ionic",
+  "appName": "eatong-ionic",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {}
+}
