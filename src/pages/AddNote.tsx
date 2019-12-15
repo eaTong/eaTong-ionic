@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
   IonButtons,
   IonContent,
@@ -6,19 +6,23 @@ import {
   IonTitle,
   IonToolbar,
   IonButton,
-  IonBackButton
+  IonBackButton,
+  IonInput,
+  IonLabel
 } from "@ionic/react";
-import {PagePropsInterface} from "../utils/PagePropsInterface";
+import { PagePropsInterface } from "../utils/PagePropsInterface";
 import ajax from "../utils/ajax";
 
 class AddNote extends Component<PagePropsInterface, {}> {
   state = {
-    note: ''
+    note: '',
+    reference: '',
+    source: '',
   };
 
   async saveNote() {
-    const {note} = this.state;
-    await ajax({url: '/api/note/add', data: {title: note.slice(0, 20), content: note}});
+    const { note, reference, source } = this.state;
+    await ajax({ url: '/api/note/add', data: { reference, source, title: note.slice(0, 20), content: note } });
     this.props.history.goBack();
   }
 
@@ -28,9 +32,9 @@ class AddNote extends Component<PagePropsInterface, {}> {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton/>
+              <IonBackButton />
             </IonButtons>
-            <IonTitle>add note</IonTitle>
+            <IonTitle>添加笔记</IonTitle>
             <IonButtons slot="end">
               <IonButton color={'primary'} onClick={() => this.saveNote()}>保存</IonButton>
             </IonButtons>
@@ -38,13 +42,32 @@ class AddNote extends Component<PagePropsInterface, {}> {
         </IonHeader>
         <IonContent>
           <IonItem>
+            <IonLabel>来源</IonLabel>
+            <IonInput
+              placeholder="来源。。。"
+              value={this.state.source}
+              required
+              onIonChange={(val: any) => this.setState({ source: val.target.value })}
+            />
+          </IonItem>
+          <IonItem>
             <IonTextarea
               placeholder="笔记内容。。。"
               autoGrow
               value={this.state.note}
               rows={4}
               required
-              onIonChange={(val: any) => this.setState({note: val.target.value})}
+              onIonChange={(val: any) => this.setState({ note: val.target.value })}
+            />
+          </IonItem>
+          <IonItem>
+            <IonTextarea
+              placeholder="引用。。。"
+              autoGrow
+              value={this.state.reference}
+              rows={4}
+              required
+              onIonChange={(val: any) => this.setState({ reference: val.target.value })}
             />
           </IonItem>
         </IonContent>
